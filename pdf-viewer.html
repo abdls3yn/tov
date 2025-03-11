@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>PDF Viewer</title>
+    <style>
+        #pdf-canvas {
+            border: 1px solid black; /* Add a border for debugging */
+        }
+    </style>
+</head>
+<body>
+    <canvas id="pdf-canvas"></canvas>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.0.379/pdf.min.js"></script>
+    <script>
+        pdfjsLib.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.0.379/pdf.worker.min.js`;
+
+        const url = 'my-document.pdf'; // Ensure this matches your PDF's filename
+
+        pdfjsLib.getDocument(url).promise.then(function(pdf) {
+            pdf.getPage(1).then(function(page) {
+                const canvas = document.getElementById('pdf-canvas');
+                const context = canvas.getContext('2d');
+                const viewport = page.getViewport({ scale: 1.5 });
+
+                canvas.height = viewport.height;
+                canvas.width = viewport.width;
+
+                const renderContext = {
+                    canvasContext: context,
+                    viewport: viewport
+                };
+
+                page.render(renderContext);
+            });
+        });
+    </script>
+</body>
+</html>
