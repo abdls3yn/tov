@@ -15,7 +15,7 @@
     <script>
         pdfjsLib.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.0.379/pdf.worker.min.js`;
 
-        const url = 'my-document.pdf'; // Ensure this matches your PDF's filename
+        const url = 'PdfExport-59eb7514-ff6d-4a2e-9436-b1f72e6aa554.pdf'; // Ensure this matches your PDF's filename
 
         pdfjsLib.getDocument(url).promise.then(function(pdf) {
             pdf.getPage(1).then(function(page) {
