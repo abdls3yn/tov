@@ -11,9 +11,8 @@
 </head>
 <body>
     <canvas id="pdf-canvas"></canvas>
-    <script src="https://jsdelivr.cloudflare.com/ajax/libs/pdf.js/4.0.379/pdf.min.js"></script>
-    <script>
-        pdfjsLib.GlobalWorkerOptions.workerSrc = `https://jsdelivr.cloudflare.com/ajax/libs/pdf.js/4.0.379/pdf.worker.min.js`;
+    <script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@4.0.379/build/pdf.min.js"></script>
+    <script>pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdn.jsdelivr.net/npm/pdfjs-dist@4.0.379/build/pdf.worker.min.js';
 
         const url = 'PdfExport-59eb7514-ff6d-4a2e-9436-b1f72e6aa554.pdf'; // Ensure this matches your PDF's filename
 
