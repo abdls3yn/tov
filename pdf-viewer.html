@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Tone of Voice</title>
+    <title>PDF Viewer</title>
     <style>
         #pdf-canvas {
             width: 100%;
@@ -24,7 +24,6 @@
                 const canvas = document.getElementById('pdf-canvas');
                 const context = canvas.getContext('2d');
 
-                // Calculate scale with device pixel ratio
                 const scale = (window.innerWidth * window.devicePixelRatio / page.getViewport({ scale: 1 }).width);
 
                 const viewport = page.getViewport({ scale: scale });
@@ -38,10 +37,7 @@
                 };
 
                 page.render(renderContext).promise.then(function() {
-                    let parentIframe = window.parent.document.getElementById('pdfFrame');
-                    if (parentIframe) {
-                        parentIframe.style.height = canvas.height + "px";
-                    }
+                    window.parent.postMessage({height: canvas.height}, '*');
                 });
             });
         });
