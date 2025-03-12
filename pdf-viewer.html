@@ -5,9 +5,8 @@
     <title>PDF Viewer</title>
     <style>
         #pdf-canvas {
-            border: 1px solid black; /* For debugging, remove later if needed */
-            width: 100%; /* Make canvas responsive */
-            height: auto; /* Allow height to adjust based on content */
+            width: 100%;
+            height: auto;
         }
     </style>
 </head>
@@ -25,8 +24,8 @@
                 const canvas = document.getElementById('pdf-canvas');
                 const context = canvas.getContext('2d');
 
-                // Calculate scale based on screen width
-                const scale = window.innerWidth / page.getViewport({ scale: 1 }).width;
+                // Calculate scale with device pixel ratio
+                const scale = (window.innerWidth * window.devicePixelRatio / page.getViewport({ scale: 1 }).width);
 
                 const viewport = page.getViewport({ scale: scale });
 
@@ -38,7 +37,12 @@
                     viewport: viewport
                 };
 
-                page.render(renderContext);
+                page.render(renderContext).promise.then(function() {
+                    let parentIframe = window.parent.document.getElementById('pdfFrame');
+                    if (parentIframe) {
+                        parentIframe.style.height = canvas.height + "px";
+                    }
+                });
             });
         });
     </script>
